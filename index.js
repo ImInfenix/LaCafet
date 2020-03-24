@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
+const config = require('./config.json');
 const bot = new Discord.Client();
-const token = 'NjkxNTgwOTYxNzMyNjg5OTMw.Xnjjig.qEfudF2Ycgijya6t2tdjWSLUzBI'
+const token = config.discord_bot_token;
 
 bot.on('ready', () => {
   console.log('La Cafet, prête pour vous servir !');
@@ -16,10 +17,10 @@ bot.on('message', message => {
     if(message.author.bot) return;
 
     var name;
-    if(message.member.nickname)
+    //if(message.member.nickname)
       name = message.member.nickname;
-    else
-      name = message.author.name;
+    //else
+      //name = message.author.name;
 
     if (message.content.includes('café')) {
       message.channel.send('Et un café pour ' + name +' !');
