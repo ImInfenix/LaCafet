@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
-const token = 'NjkxNTgwOTYxNzMyNjg5OTMw.XnjTqg.QFWF_vo3H3peBTn3HewAK7F0x5Y'
+const token = 'NjkxNTgwOTYxNzMyNjg5OTMw.Xnjjig.qEfudF2Ycgijya6t2tdjWSLUzBI'
 
 bot.on('ready', () => {
   console.log('La Cafet, prête pour vous servir !');
@@ -15,28 +15,39 @@ bot.on('message', message => {
 
     if(message.author.bot) return;
 
+    var name;
+    if(message.member.nickname)
+      name = message.member.nickname;
+    else
+      name = message.author.name;
+
     if (message.content.includes('café')) {
-      message.channel.send('Et un café pour ' + message.member.nickname +' !');
+      message.channel.send('Et un café pour ' + name +' !');
       message.channel.send({files: [cafeImgURL]});
+      console.log('Et un café pour ' + name +' !');
     }
 
     if (message.content.includes('pain au chocolat')) {
-      message.channel.send('Et un pain au chocolat pour ' + message.member.nickname +' !');
+      message.channel.send('Et un pain au chocolat pour ' + name +' !');
       message.channel.send({files: [painChocImgURL]});
+      console.log('Et un pain au chocolat pour ' + name +' !');
     }
 
     if(message.content.includes('chocolatine')) {
-      message.channel.send('ON DIT PAIN AU CHOCOLAT CONNARD !!!');
+      message.channel.send('ON DIT PAIN AU CHOCOLAT !!!');
+      console.log(name + ' pense qu\'on dit chocolatine...');
     }
 
     if (message.content.includes('coca')) {
-      message.channel.send('Et un coca pour ' + message.member.nickname +' !');
+      message.channel.send('Et un coca pour ' + name +' !');
       message.channel.send({files: [cocaImgURL]});
+      console.log('Et un coca pour ' + name +' !');
     }
 
     if(message.content.includes('jambon beurre')) {
-      message.channel.send('Et un jambon beurre pour ' + message.member.nickname +' !');
+      message.channel.send('Et un jambon beurre pour ' + name +' !');
       message.channel.send({files: [jambonBeurreImgURL]});
+      console.log('Et un jambon beurre pour ' + name +' !');
     }
 
     if(message.content.includes('commander'))
@@ -48,6 +59,7 @@ bot.on('message', message => {
                           '\t- Sandwich Jambon Beurre\n' +
                           '\t- Pain au chocolat\n' +
                           '========================================');
+      console.log('Demande de la liste des commandes par ' + name);
     }
 
 });
