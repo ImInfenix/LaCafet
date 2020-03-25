@@ -7,6 +7,15 @@ bot.on('ready', () => {
   console.log('La Cafet, prête pour vous servir !');
 });
 
+var produits = {
+  'Café' : 'https://cdn.discordapp.com/attachments/689045425654988832/691575227477655632/Z.png',
+  'Chocolat chaud' : 'https://cdn.discordapp.com/attachments/691583463090028607/692033319885340682/th.png',
+  'Coca' : 'https://cdn.discordapp.com/attachments/691583463090028607/691672063303483392/maxresdefault.jpg',
+  'Croissant' : 'https://cdn.discordapp.com/attachments/692281267533905943/692297893725601802/th.png',
+  'Jambon beurre' : 'https://cdn.discordapp.com/attachments/691583463090028607/691673410010611742/th.png',
+    'Pain au chocolat' : 'https://cdn.discordapp.com/attachments/689045425654988832/691575282263392356/9k.png'
+}
+
 const painChocImgURL = 'https://cdn.discordapp.com/attachments/689045425654988832/691575282263392356/9k.png';
 const cafeImgURL = 'https://cdn.discordapp.com/attachments/689045425654988832/691575227477655632/Z.png';
 const cocaImgURL = 'https://cdn.discordapp.com/attachments/691583463090028607/691672063303483392/maxresdefault.jpg';
@@ -20,55 +29,35 @@ bot.on('message', message => {
     if(message.channel.name === 'la-cafet')
     {
 
-      var name = message.member.nickname;
-      if(!name || name === 'undefined')
+      let name = message.member.nickname;
+      if(!name)
         name = message.author.username;
 
-      if (message.content.includes('café')) {
-        message.channel.send('Et un café pour ' + name +' !');
-        message.channel.send({files: [cafeImgURL]});
-        console.log('Et un café pour ' + name +' !');
+      let messageLow = message.content.toLowerCase();
+      let channel = message.channel;
+
+      for(let key in produits) {
+        let value = produits[key];
+
+        if (messageLow.includes(key.toLowerCase())) {
+          channel.send('Et un ' + key.toLowerCase() + ' pour ' + name +' !');
+          channel.send({files: [value]});
+          console.log('Et un ' + key.toLowerCase() + ' pour ' + name +' !');
+        }
       }
 
-      if (message.content.includes('pain au chocolat')) {
-        message.channel.send('Et un pain au chocolat pour ' + name +' !');
-        message.channel.send({files: [painChocImgURL]});
-        console.log('Et un pain au chocolat pour ' + name +' !');
-      }
-
-      if(message.content.includes('chocolatine')) {
-        message.channel.send('ON DIT PAIN AU CHOCOLAT !!!');
+      if(messageLow.includes('chocolatine')) {
+        channel.send('ON DIT PAIN AU CHOCOLAT !!!');
         console.log(name + ' pense qu\'on dit chocolatine...');
       }
 
-      if (message.content.includes('coca')) {
-        message.channel.send('Et un coca pour ' + name +' !');
-        message.channel.send({files: [cocaImgURL]});
-        console.log('Et un coca pour ' + name +' !');
-      }
-
-      if(message.content.includes('jambon beurre')) {
-        message.channel.send('Et un jambon beurre pour ' + name +' !');
-        message.channel.send({files: [jambonBeurreImgURL]});
-        console.log('Et un jambon beurre pour ' + name +' !');
-      }
-
-      if(message.content.includes('chocolat chaud')) {
-        message.channel.send('Et un chocolat chaud pour ' + name +' !');
-        message.channel.send({files: [chocolatChaudImgURL]});
-        console.log('Et un chocolat chaud pour ' + name +' !');
-      }
-
-      if(message.content.includes('commander'))
+      if(messageLow.includes('commander'))
       {
-        message.channel.send('========================================\n' +
-                            'Voici les différentes choses que vous pouvez commander : \n' +
-                            '\t- Café\n' +
-                            '\t- Coca\n' +
-                            '\t- Sandwich Jambon Beurre\n' +
-                            '\t- Pain au chocolat\n' +
-                            '\t- Chocolat chaud\n' +
-                            '========================================');
+        let listeProduits = '========================================\nVoici les différentes choses que vous pouvez commander : \n';
+        for(let key in produits)
+          listeProduits += '\t- ' + key + '\n';
+        listeProduits += '========================================';
+        channel.send(listeProduits);
         console.log('Demande de la liste des commandes par ' + name);
       }
 
