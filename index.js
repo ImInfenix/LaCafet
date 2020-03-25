@@ -65,5 +65,5 @@ bot.on('message', message => {
 
 });
 
-console.log("Logging !");
+console.log("Logging...");
 bot.login(token);
