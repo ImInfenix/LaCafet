@@ -3,6 +3,8 @@ const config = require('./config.json');
 const bot = new Discord.Client();
 const token = config.discord_bot_token;
 
+var date = new Date();
+
 bot.on('ready', () => {
   console.log('La Cafet, prête pour vous servir !');
 });
@@ -13,7 +15,7 @@ var produits = {
   'Coca' : 'https://cdn.discordapp.com/attachments/691583463090028607/691672063303483392/maxresdefault.jpg',
   'Croissant' : 'https://cdn.discordapp.com/attachments/692281267533905943/692297893725601802/th.png',
   'Jambon beurre' : 'https://cdn.discordapp.com/attachments/691583463090028607/691673410010611742/th.png',
-    'Pain au chocolat' : 'https://cdn.discordapp.com/attachments/689045425654988832/691575282263392356/9k.png'
+  'Pain au chocolat' : 'https://cdn.discordapp.com/attachments/689045425654988832/691575282263392356/9k.png'
 }
 
 const painChocImgURL = 'https://cdn.discordapp.com/attachments/689045425654988832/691575282263392356/9k.png';
@@ -64,6 +66,14 @@ bot.on('message', message => {
   }
 
 });
+
+function printDate() {
+  console.log(date.toLocaleString("fr-FR", {timeZone: "Europe/Paris"}));
+}
+
+var delay = 60 - date.getSeconds();
+//setTimeout(function(){setInterval(printDate, 60 * 1000); printDate(); }, delay * 1000);
+setTimeout(function(){let delayMinutes = 60 - date.getMinutes(); setInterval(printDate, 60 * 60 * 1000); printDate(); }, delay * 1000);
 
 console.log("Logging...");
 bot.login(token);

@@ -2,7 +2,7 @@
   "name": "cafet",
   "version": "1.0.0",
   "description": "Bot discord pour la cafet IN",
-  "main": "index.js",
+  "main": "mainCafet.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
