@@ -7,6 +7,10 @@ bot.on('ready', () => {
   console.log('La Cafet, prête pour vous servir !');
 });
 
+var timeTrackerLaunchID;
+var timeTrackerMinutesID;
+var timeTrackerHoursID;
+
 var produits = {
   'Café' : 'https://cdn.discordapp.com/attachments/689045425654988832/691575227477655632/Z.png',
   'Chocolat chaud' : 'https://cdn.discordapp.com/attachments/691583463090028607/692033319885340682/th.png',
@@ -55,6 +59,12 @@ bot.on('message', message => {
         console.log('Demande de la liste des commandes par ' + name);
       }
 
+      if(message.author.id === "223838078345805824" && message.content === "!shutdownCafet") //if bot owner ask for the shutdown
+      {
+        channel.send('Disconnecting...');
+        setTimeout(() => {disconnect();}, 1000);
+      }
+
   }
 
 });
@@ -63,14 +73,22 @@ function printDate() {
   console.log(new Date().toLocaleString("fr-FR", {timeZone: "Europe/Paris"}));
 }
 
+function disconnect()
+{
+  bot.destroy();
+  clearTimeout(timeTrackerLaunchID);
+  clearInterval(timeTrackerMinutesID);
+  clearInterval(timeTrackerHoursID);
+}
+
 //setTimeout(function(){setInterval(printDate, 60 * 1000); printDate(); }, delay * 1000);
 var dateAtLaunch = new Date();
 var delay = 60 - dateAtLaunch.getSeconds();
-setTimeout(function(){
+timeTrackerLaunchID = setTimeout(function(){
   let delayMinutes = 60 - dateAtLaunch.getMinutes() - 1;
   if(delayMinutes < 0) delayMinutes = 0;
-  setTimeout(function(){
-    setInterval(printDate, 60 * 60 * 1000);
+  timeTrackerMinutesID = setTimeout(function(){
+    timeTrackerHoursID = setInterval(printDate, 60 * 60 * 1000);
     printDate();
   }, delayMinutes * 60 * 1000);
   console.log('Premier appel dans ' + delayMinutes + 'minutes');

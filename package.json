@@ -16,6 +16,9 @@
     "type": "git",
     "url": "git+https://github.com/ImInfenix/LaCafet.git"
   },
+  "scripts":{
+    "start": "node ."
+  },
   "bugs": {
     "url": "https://github.com/ImInfenix/LaCafet/issues"
   },
