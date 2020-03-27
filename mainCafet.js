@@ -3,8 +3,6 @@ const config = require('./config.json');
 const bot = new Discord.Client();
 const token = config.discord_bot_token;
 
-var date = new Date();
-
 bot.on('ready', () => {
   console.log('La Cafet, prête pour vous servir !');
 });
@@ -17,12 +15,6 @@ var produits = {
   'Jambon beurre' : 'https://cdn.discordapp.com/attachments/691583463090028607/691673410010611742/th.png',
   'Pain au chocolat' : 'https://cdn.discordapp.com/attachments/689045425654988832/691575282263392356/9k.png'
 }
-
-const painChocImgURL = 'https://cdn.discordapp.com/attachments/689045425654988832/691575282263392356/9k.png';
-const cafeImgURL = 'https://cdn.discordapp.com/attachments/689045425654988832/691575227477655632/Z.png';
-const cocaImgURL = 'https://cdn.discordapp.com/attachments/691583463090028607/691672063303483392/maxresdefault.jpg';
-const jambonBeurreImgURL = 'https://cdn.discordapp.com/attachments/691583463090028607/691673410010611742/th.png';
-const chocolatChaudImgURL = 'https://cdn.discordapp.com/attachments/691583463090028607/692033319885340682/th.png';
 
 bot.on('message', message => {
 
@@ -68,12 +60,21 @@ bot.on('message', message => {
 });
 
 function printDate() {
-  console.log(date.toLocaleString("fr-FR", {timeZone: "Europe/Paris"}));
+  console.log(new Date().toLocaleString("fr-FR", {timeZone: "Europe/Paris"}));
 }
 
-var delay = 60 - date.getSeconds();
 //setTimeout(function(){setInterval(printDate, 60 * 1000); printDate(); }, delay * 1000);
-setTimeout(function(){let delayMinutes = 60 - date.getMinutes(); setInterval(printDate, 60 * 60 * 1000); printDate(); }, delay * 1000);
+var dateAtLaunch = new Date();
+var delay = 60 - dateAtLaunch.getSeconds();
+setTimeout(function(){
+  let delayMinutes = 60 - dateAtLaunch.getMinutes() - 1;
+  if(delayMinutes < 0) delayMinutes = 0;
+  setTimeout(function(){
+    setInterval(printDate, 60 * 60 * 1000);
+    printDate();
+  }, delayMinutes * 60 * 1000);
+  console.log('Premier appel dans ' + delayMinutes + 'minutes');
+}, delay * 1000);
 
 console.log("Logging...");
 bot.login(token);
